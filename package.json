@@ -1,70 +1,30 @@
 {
-  "name": "jsonwebtoken",
-  "version": "8.3.0",
-  "description": "JSON Web Token implementation (symmetric and asymmetric)",
+  "name": "@travetto/jwt",
+  "version": "0.3.10",
+  "description": "JSON Web Token implementation",
   "main": "index.js",
-  "nyc": {
-    "check-coverage": true,
-    "lines": 95,
-    "statements": 95,
-    "functions": 100,
-    "branches": 95,
-    "exclude": [
-      "./test/**"
-    ],
-    "reporter": [
-      "json",
-      "lcov",
-      "text-summary"
-    ]
-  },
-  "scripts": {
-    "lint": "eslint .",
-    "coverage": "nyc mocha",
-    "test": "npm run lint && npm run coverage && nsp check && cost-of-modules"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/auth0/node-jsonwebtoken"
+    "url": "https://github.com/travetto/jwt"
   },
   "keywords": [
-    "jwt"
+    "jwt",
+    "travetto"
   ],
   "author": "auth0",
+  "contributors": [
+    "travetto framework"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/auth0/node-jsonwebtoken/issues"
+    "url": "https://github.com/travetto/jwt/issues"
   },
   "dependencies": {
-    "jws": "^3.1.5",
-    "lodash.includes": "^4.3.0",
-    "lodash.isboolean": "^3.0.3",
-    "lodash.isinteger": "^4.0.4",
-    "lodash.isnumber": "^3.0.3",
-    "lodash.isplainobject": "^4.0.6",
-    "lodash.isstring": "^4.0.1",
-    "lodash.once": "^4.0.0",
-    "ms": "^2.1.1"
+    "@travetto/base": "^0.3.18",
+    "@types/jws": "^3.1.1",
+    "jws": "^3.1.5"
   },
   "devDependencies": {
-    "atob": "^1.1.2",
-    "chai": "^4.1.2",
-    "conventional-changelog": "~1.1.0",
-    "cost-of-modules": "^1.0.1",
-    "eslint": "^4.19.1",
-    "mocha": "^5.2.0",
-    "nsp": "^2.6.2",
-    "nyc": "^11.9.0",
-    "sinon": "^6.0.0"
-  },
-  "engines": {
-    "npm": ">=1.4.28",
-    "node": ">=0.12"
-  },
-  "files": [
-    "lib",
-    "decode.js",
-    "sign.js",
-    "verify.js"
-  ]
+    "@travetto/test": "^0.3.21"
+  }
 }
