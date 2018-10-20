@@ -126,7 +126,7 @@ class VerifyExpirationSuite {
   @Test('clockTimestamp - should verify unexpired token relative to user-provided clockTimestamp')
   async testStampValid() {
     const clockTimestamp = 1000000000;
-    const token = await jwt.sign({ foo: 'bar' }, { payload: { iat: clockTimestamp, exp: clockTimestamp + 1 }, key: this.key });
+    const token = await jwt.sign({ foo: 'bar', iat: clockTimestamp, exp: clockTimestamp + 1 }, { key: this.key });
     await jwt.verify(token, { key: this.key, clock: { timestamp: clockTimestamp } });
   }
 
@@ -134,7 +134,7 @@ class VerifyExpirationSuite {
   @ShouldThrow('expired')
   async testStampInvalid() {
     const clockTimestamp = 10000000000;
-    const token = await jwt.sign({ foo: 'bar' }, { payload: { iat: clockTimestamp + 1, exp: 1 }, key: this.key });
+    const token = await jwt.sign({ foo: 'bar', iat: clockTimestamp + 1, exp: 1 }, { key: this.key });
     await jwt.verify(token, { key: this.key, clock: { timestamp: clockTimestamp } });
   }
 

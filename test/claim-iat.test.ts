@@ -59,7 +59,7 @@ class IssueAtSuite {
     ];
 
     for (const testCase of OPS) {
-      const token = await jwt.sign({ iat: now + (testCase.iat! || 0) }, { payload: {}, iatExclude: testCase.iatExclude });
+      const token = await jwt.sign({ iat: now + (testCase.iat! || 0) }, { iatExclude: testCase.iatExclude });
       if (!testCase.expectedIssueAt) {
         assert(jwt.decode(token).iat === undefined);
       } else {
@@ -94,8 +94,7 @@ class IssueAtSuite {
     const NOW = Math.trunc(Date.now() / 1000);
 
     for (const testCase of OPS) {
-      const token = await jwt.sign({}, {
-        payload: { exp: NOW + testCase.maxAge, },
+      const token = await jwt.sign({ exp: NOW + testCase.maxAge }, {
         key: 'secret',
         alg: 'none'
       });

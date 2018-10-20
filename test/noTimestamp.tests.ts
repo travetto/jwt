@@ -9,7 +9,7 @@ class NoTimestampTests {
   @Test('should exclude')
   async testExclude() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({ foo: 123 }, { key: '123', payload: { exp: now + 300 }, iatExclude: true });
+    const token = await jwt.sign({ foo: 123, exp: now + 300 }, { key: '123', iatExclude: true });
     const result = await jwt.verify(token, { key: '123' });
     assert(result.exp === now + (5 * 60));
     assert(result.iat === undefined);
@@ -18,7 +18,7 @@ class NoTimestampTests {
   @Test('shouldn\'t exclude')
   async testInclude() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({ foo: 123 }, { key: '123', payload: { exp: now + 300 }, iatExclude: false });
+    const token = await jwt.sign({ foo: 123, exp: now + 300 }, { key: '123', iatExclude: false });
     const result = await jwt.verify(token, { key: '123' });
     assert(result.exp === now + (5 * 60));
     assert(result.iat !== undefined);
@@ -28,7 +28,7 @@ class NoTimestampTests {
   @Test('shouldn\'t exclude, implicit')
   async testIncludeImplicit() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({ foo: 123 }, { key: '123', payload: { exp: now + 300 } });
+    const token = await jwt.sign({ foo: 123, exp: now + 300 }, { key: '123' });
     const result = await jwt.verify(token, { key: '123' });
     assert(result.exp === now + (5 * 60));
     assert(result.iat !== undefined);

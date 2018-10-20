@@ -7,15 +7,9 @@ import * as jwt from '..';
 @Suite('subject')
 class SuiteTest {
 
-  @Test('should error when "sub" is in payload')
-  @ShouldThrow('Bad "options.sub" option. The payload already has an "sub" property.')
-  async testSubInPayload() {
-    await jwt.sign({ sub: 'bar' }, { payload: { sub: 'bar' }, alg: 'none' });
-  }
-
   @Test('should verify with a string "subject"')
   async testVerify() {
-    const token = await jwt.sign({}, { alg: 'none', payload: { sub: 'foo' } });
+    const token = await jwt.sign({ sub: 'foo' }, { alg: 'none' });
     const decoded = jwt.decode(token);
     const verified = await jwt.verify(token, { alg: 'none', payload: { sub: 'foo' } });
     assert.deepStrictEqual(decoded, verified);

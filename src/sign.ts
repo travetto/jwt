@@ -12,21 +12,12 @@ export async function sign<T extends Payload>(payload: T, options: SignOptions =
 
   payload = { ...(payload as object) } as T;
 
-  const signPayload = options.payload || {};
-
-  const timestamp = payload.iat || Math.trunc(Date.now() / 1000);
-
-  for (const key of ['aud', 'iss', 'sub', 'jti', 'exp', 'nbf']) {
-    if (signPayload[key] !== undefined) {
-      if (payload[key] !== undefined) {
-        throw new JWTError(`Bad "options.${key}" option. The payload already has an "${key}" property.`);
-      }
-      payload[key] = signPayload[key];
-    }
-  }
+  const NOW = Math.trunc(Date.now() / 1000);
 
   if (!options.iatExclude) {
-    payload.iat = timestamp;
+    if (!payload.iat) {
+      payload.iat = NOW;
+    }
   } else {
     delete payload.iat;
   }

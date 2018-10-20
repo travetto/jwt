@@ -44,9 +44,7 @@ export interface SignHeader {
 
 export interface SignOptions {
   key?: Key;
-  mutatePayload?: boolean;
   iatExclude?: boolean;
-  payload?: Payload;
   alg?: AlgType;
   header?: {
     typ?: 'JWT';

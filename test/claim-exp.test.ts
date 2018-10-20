@@ -35,7 +35,7 @@ class ExpiresSuite {
   @Test('should set correct "exp" with negative number of seconds')
   async testNegativeExp() {
     const start = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({}, { alg: 'none', payload: { exp: start - 10 } });
+    const token = await jwt.sign({ exp: start - 10 }, { alg: 'none' });
 
     const decoded = jwt.decode(token);
     const verified = await jwt.verify(token, { clock: { timestamp: start - 20000 } });
@@ -46,7 +46,7 @@ class ExpiresSuite {
   @Test('should set correct "exp" with positive number of seconds')
   async testPositive() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({}, { alg: 'none', payload: { exp: now + 10 } });
+    const token = await jwt.sign({ exp: now + 10 }, { alg: 'none' });
 
     const decoded = jwt.decode(token);
     const verified = await jwt.verify(token);
@@ -57,7 +57,7 @@ class ExpiresSuite {
   @Test('should set correct "exp" with zero seconds')
   async testZero() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({}, { alg: 'none', payload: { exp: now } });
+    const token = await jwt.sign({ exp: now }, { alg: 'none' });
 
     const decoded = jwt.decode(token);
     const verified = await jwt.verify(token, { clock: { timestamp: now - 1 } });
@@ -68,7 +68,7 @@ class ExpiresSuite {
   @Test('should verify "exp" using "clockTimestamp"')
   async testTimestamp() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({}, { payload: { exp: now + 10 }, alg: 'none' });
+    const token = await jwt.sign({ exp: now + 10 }, { alg: 'none' });
 
     const verified = await jwt.verify(token, { clock: { timestamp: now + 5 } });
     assert(verified.iat === now);
@@ -78,7 +78,7 @@ class ExpiresSuite {
   @Test('should verify "exp" using "clockTolerance"')
   async testTolerance() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({}, { payload: { exp: now + 5 }, alg: 'none' });
+    const token = await jwt.sign({ exp: now + 5 }, { alg: 'none' });
 
     const verified = await jwt.verify(token, { clock: { timestamp: now, tolerance: 6 } });
     assert(verified.iat === now);
@@ -88,7 +88,7 @@ class ExpiresSuite {
   @Test('should ignore a expired token when "ignoreExpiration" is true')
   async testIgnoreExp() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({}, { payload: { exp: now - 10 }, alg: 'none' });
+    const token = await jwt.sign({ exp: now - 10 }, { alg: 'none' });
 
     const verified = await jwt.verify(token, { ignore: { exp: true } });
     assert(verified.iat === now);
@@ -99,7 +99,7 @@ class ExpiresSuite {
   @ShouldThrow('expired')
   async testExpIsNow() {
     const now = Math.trunc(Date.now() / 1000);
-    const token = await jwt.sign({}, { payload: { exp: now }, alg: 'none' });
+    const token = await jwt.sign({ exp: now }, { alg: 'none' });
 
     await jwt.verify(token);
   }
@@ -109,7 +109,7 @@ class ExpiresSuite {
   async test() {
     const now = Math.trunc(Date.now() / 1000);
 
-    const token = await jwt.sign({}, { payload: { exp: now - 5 }, alg: 'none' });
+    const token = await jwt.sign({ exp: now - 5 }, { alg: 'none' });
 
     await jwt.verify(token, { clock: { tolerance: 5 } });
   }

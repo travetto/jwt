@@ -9,7 +9,7 @@ class AudSignStringSuite {
 
   @BeforeEach()
   async init() {
-    this.token = await jwt.sign({}, { alg: 'none', payload: { aud: 'urn:foo' } });
+    this.token = await jwt.sign({ aud: 'urn:foo' }, { alg: 'none' });
   }
 
   @Test('should verify and decode without verify "audience" option')
@@ -71,7 +71,7 @@ class AudSignStringArraySuite {
 
   @BeforeEach()
   async init() {
-    this.token = await jwt.sign({}, { alg: 'none', payload: { aud: ['urn:foo', 'urn:bar'] } });
+    this.token = await jwt.sign({ aud: ['urn:foo', 'urn:bar'] }, { alg: 'none' });
   }
 
   @Test('should verify and decode without verify "audience" option')
