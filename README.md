@@ -1,7 +1,7 @@
 travetto: JWT
 ===
 
-This module is a simple component to support [`JWT`'](https://jwt.io/) signing and verification.  The framework provides a port of [`node-jsonwebtoken`](https://github.com/auth0/node-jsonwebtoken). The API has been streamlined, and is intended as a lower level component as a basis for other modules.
+This module is a simple component to support [`JWT`](https://jwt.io/) signing and verification.  The framework provides a port of [`node-jsonwebtoken`](https://github.com/auth0/node-jsonwebtoken). The API has been streamlined, and is intended as a lower level component as a basis for other modules.
 
 The API exposes:
 
